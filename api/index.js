@@ -1,0 +1,44 @@
+const express = require('express');
+const cors = require('cors');
+const mongoose = require('mongoose');
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+// الاتصال بـ MongoDB
+const MONGO_URI = process.env.MONGO_URI;
+
+mongoose.connect(MONGO_URI)
+  .then(() => console.log('Connected to MongoDB!'))
+  .catch(err => console.error('Could not connect to MongoDB', err));
+
+const waitlistSchema = new mongoose.Schema({
+  email: { type: String, required: true, unique: true },
+  signup_date: { type: Date, default: Date.now }
+});
+
+// Vercel بيعمل ريستارت للسيرفر كتير، فالسطر ده بيمنع أي Error في الموديل
+const Waitlist = mongoose.models.Waitlist || mongoose.model('Waitlist', waitlistSchema);
+
+app.post('/api/waitlist', async (req, res) => {
+    const { email } = req.body;
+
+    if (!email || !email.includes('@')) {
+        return res.status(400).json({ error: 'Please provide a valid email address.' });
+    }
+
+    try {
+        const newEntry = new Waitlist({ email });
+        await newEntry.save();
+        res.status(201).json({ message: 'Successfully joined the waitlist!' });
+    } catch (err) {
+        if (err.code === 11000) {
+            return res.status(409).json({ error: 'This email is already on the waitlist!' });
+        }
+        res.status(500).json({ error: 'An error occurred while joining the waitlist.' });
+    }
+});
+
+// ده السطر اللي بيخلي Vercel يشغل السيرفر
+module.exports = app;
