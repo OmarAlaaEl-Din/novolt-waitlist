@@ -51,7 +51,7 @@
 
     <main class="flex-grow pt-32 pb-20 bg-gradient-subtle flex items-center">
         <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div class="space-y-8">
+            <div class="space-y-6">
                 <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/50 border border-slate-700 text-sm font-medium text-emerald-400">
                     <span class="relative flex h-2 w-2">
                       <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -66,20 +66,25 @@
                     Novolt provides secure, automated wireless charging lockers in public spaces. Drop your phone, securely lock it, and go enjoy your time. We'll handle the power.
                 </p>
                 
-                <div id="waitlist" class="glass-panel p-2 rounded-2xl md:rounded-full flex flex-col md:flex-row shadow-2xl max-w-lg transition-opacity duration-300">
-                    <form id="waitlist-form" class="flex w-full flex-col md:flex-row gap-2">
-                        <input type="email" id="email-input" required placeholder="Enter your email for early access..." 
-                            class="flex-grow bg-transparent border-none focus:ring-0 text-white px-6 py-4 placeholder-slate-500 outline-none w-full">
-                        <button type="submit" 
-                            class="bg-white text-slate-900 font-bold px-8 py-4 rounded-xl md:rounded-full hover:bg-sky-50 transition-colors whitespace-nowrap flex justify-center items-center gap-2">
-                            Join Waitlist <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                        </button>
-                    </form>
+                <div class="pt-4 border-t border-slate-800">
+                    <h3 class="text-2xl font-bold text-white mb-2">Be the first to know when we launch.</h3>
+                    <p class="text-slate-300 mb-6">Join the waitlist and get <span class="font-bold text-sky-400 bg-sky-400/10 px-2 py-0.5 rounded">5 free charging sessions</span> when Novolt arrives at your local venue.</p>
+                    
+                    <div id="waitlist" class="glass-panel p-2 rounded-2xl md:rounded-full flex flex-col md:flex-row shadow-2xl max-w-lg transition-opacity duration-300">
+                        <form id="waitlist-form" class="flex w-full flex-col md:flex-row gap-2">
+                            <input type="email" id="email-input" required placeholder="Enter your email address" 
+                                class="flex-grow bg-transparent border-none focus:ring-0 text-white px-6 py-4 placeholder-slate-500 outline-none w-full">
+                            <button type="submit" 
+                                class="bg-sky-500 text-white font-bold px-8 py-4 rounded-xl md:rounded-full hover:bg-sky-400 transition-colors whitespace-nowrap flex justify-center items-center gap-2">
+                                Get Free Charges
+                            </button>
+                        </form>
+                    </div>
+                    <div id="success-message" class="hidden text-emerald-400 font-medium items-center gap-2 transition-opacity duration-300 mt-4">
+                        <i data-lucide="check-circle" class="w-5 h-5"></i> You're on the list! We'll notify you when we launch.
+                    </div>
+                    <p class="text-sm text-slate-500 mt-3">We respect your inbox. No spam, ever.</p>
                 </div>
-                <div id="success-message" class="hidden text-emerald-400 font-medium items-center gap-2 transition-opacity duration-300">
-                    <i data-lucide="check-circle" class="w-5 h-5"></i> You're on the list! We'll notify you when we launch.
-                </div>
-                <p class="text-sm text-slate-500">Join 2,400+ travelers securing their battery life.</p>
             </div>
 
             <div class="relative hidden lg:block">
@@ -285,14 +290,14 @@
                         // Handle errors from the backend (like duplicate emails)
                         alert(data.error || 'Something went wrong.');
                         submitButton.disabled = false;
-                        submitButton.innerHTML = 'Join Waitlist <i data-lucide="arrow-right" class="w-4 h-4"></i>';
-                        lucide.createIcons(); // Re-initialize the Lucide icon inside the button
+                        submitButton.innerHTML = 'Get Free Charges';
+                        lucide.createIcons();
                     }
                 } catch (error) {
                     console.error('Error:', error);
                     alert('Could not connect to the server. Please try again later.');
                     submitButton.disabled = false;
-                    submitButton.innerHTML = 'Join Waitlist <i data-lucide="arrow-right" class="w-4 h-4"></i>';
+                    submitButton.innerHTML = 'Get Free Charges';
                     lucide.createIcons();
                 }
             });
