@@ -260,7 +260,8 @@
                 submitButton.innerHTML = 'Joining...';
 
                 try {
-                    // Send the email to the local Node.js backend
+                    // Send the email to the Vercel API
+                    // التعديل هنا: غيرنا الرابط لـ /api/waitlist علشان يشتغل على Vercel
                     const response = await fetch('/api/waitlist', {
                         method: 'POST',
                         headers: {
@@ -283,14 +284,15 @@
                         }, 300);
                     } else {
                         // Handle errors from the backend (like duplicate emails)
-                        alert(data.error);
+                        alert(data.error || 'Something went wrong.');
                         submitButton.disabled = false;
                         submitButton.innerHTML = 'Join Waitlist <i data-lucide="arrow-right" class="w-4 h-4"></i>';
                         lucide.createIcons(); // Re-initialize the Lucide icon inside the button
                     }
                 } catch (error) {
                     console.error('Error:', error);
-                    alert('Could not connect to the server. Make sure your Node.js backend is running!');
+                    // التعديل هنا: غيرنا رسالة الخطأ علشان تكون مناسبة للموقع الفعلي
+                    alert('Could not connect to the server. Please try again later.');
                     submitButton.disabled = false;
                     submitButton.innerHTML = 'Join Waitlist <i data-lucide="arrow-right" class="w-4 h-4"></i>';
                     lucide.createIcons();
@@ -299,5 +301,7 @@
         }
     </script>
 </body>
+</html>
 
 </html>
+
