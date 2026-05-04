@@ -21,7 +21,7 @@ const waitlistSchema = new mongoose.Schema({
 // Vercel بيعمل ريستارت للسيرفر كتير، فالسطر ده بيمنع أي Error في الموديل
 const Waitlist = mongoose.models.Waitlist || mongoose.model('Waitlist', waitlistSchema);
 
-app.post('/api/waitlist', async (req, res) => {
+app.post('/waitlist', async (req, res) => {
     const { email } = req.body;
 
     if (!email || !email.includes('@')) {
