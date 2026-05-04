@@ -40,5 +40,10 @@ app.post('/api/waitlist', async (req, res) => {
     }
 });
 
+// إضافة مسار للفحص من قبل الـ Load Balancer
+app.get('/health', (req, res) => {
+    res.status(200).send('OK');
+});
+
 // ده السطر اللي بيخلي Vercel يشغل السيرفر
 module.exports = app;
