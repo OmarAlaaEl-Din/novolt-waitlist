@@ -45,5 +45,11 @@ app.get('/health', (req, res) => {
     res.status(200).send('OK');
 });
 
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log(`🚀 Server is running on port ${PORT}`);
+});
+
 // ده السطر اللي بيخلي Vercel يشغل السيرفر
 module.exports = app;
